@@ -176,7 +176,7 @@ function createRow(calcbody, node, address, mask, labels, depth)
 
     var addressFirst = address;
     var addressLast = subnet_last_address(address, mask);
-    var useableFirst = address + 1;
+    var useableFirst = address + 1 + 3; // Azure also reserves five IP addresses in each subnet for internal use: the first four and the last IP addresses.
     var useableLast = addressLast - 1;
     var numHosts;
     var addressRange;
@@ -190,12 +190,12 @@ function createRow(calcbody, node, address, mask, labels, depth)
     else {
       addressRange = inet_ntoa(addressFirst)+' - '+inet_ntoa(addressLast);
       if (mask == 31) {
-	useableRange = addressRange;
-	numHosts = 2;
+        useableRange = addressRange;
+        numHosts = 2;
       }
       else {
-	useableRange = inet_ntoa(useableFirst)+' - '+inet_ntoa(useableLast);
-	numHosts = (1 + useableLast - useableFirst);
+        useableRange = inet_ntoa(useableFirst)+' - '+inet_ntoa(useableLast);
+        numHosts = (1 + useableLast - useableFirst);
       }
     }
 
@@ -233,7 +233,7 @@ function createRow(calcbody, node, address, mask, labels, depth)
       var newCell = document.createElement('TD');
       newRow.appendChild(newCell);
 
-      if (mask == 32) {
+      if (mask == 29) {
 	var newLink = document.createElement('SPAN');
 	newLink.className = 'disabledAction';
 	newLink.appendChild(document.createTextNode('Divide'));
@@ -563,8 +563,8 @@ P		{
 <input type="checkbox" id="cb_subnet" checked onclick="toggleColumn(this)"><label for="cb_subnet">Subnet address</label>
 <input type="checkbox" id="cb_netmask" checked onclick="toggleColumn(this)"><label for="cb_netmask">Netmask</label>
 <input type="checkbox" id="cb_range" onclick="toggleColumn(this)"><label for="cb_range">Range of addresses</label>
-<input type="checkbox" id="cb_useable" checked onclick="toggleColumn(this)"><label for="cb_useable">Useable IPs</label>
-<input type="checkbox" id="cb_hosts" checked onclick="toggleColumn(this)"><label for="cb_hosts">Hosts</label>
+<input type="checkbox" id="cb_useable" checked onclick="toggleColumn(this)"><label for="cb_useable">Azure Subnet Useable IPs</label>
+<input type="checkbox" id="cb_hosts" checked onclick="toggleColumn(this)"><label for="cb_hosts">Usable Hosts</label>
 <input type="checkbox" id="cb_divide" checked onclick="toggleColumn(this)"><label for="cb_divide">Divide</label>
 <input type="checkbox" id="cb_join" checked onclick="toggleColumn(this)"><label for="cb_join">Join</label>
 </p>
@@ -572,6 +572,8 @@ P		{
 
 <p>Click below to split and join subnets.<br>
 If you wish to save this subnetting for later, bookmark <a href="subnets.html" id="saveLink">this hyperlink</a>.</p>
+
+<p>Azure Subnet reserves 5 IP addresses in each subnet for internal use: the first 4 (Network ID, Gateway IP, Azure DNS reserved-1, Azure DNS reserved-2) and the last 1 (Broadcast IP) IP addresses.</p>
 
 </td>
 <td align="right">
@@ -590,8 +592,8 @@ If you wish to save this subnetting for later, bookmark <a href="subnets.html" i
 <th id="subnetHeader">Subnet address</th>
 <th id="netmaskHeader">Netmask</th>
 <th id="rangeHeader">Range of addresses</th>
-<th id="useableHeader">Useable IPs</th>
-<th id="hostsHeader">Hosts</th>
+<th id="useableHeader">Azure Subnet Useable IPs</th>
+<th id="hostsHeader">Azure Hosts</th>
 <th id="divideHeader">Divide</th>
 <th id="joinHeader">Join</th>
 </tr>
