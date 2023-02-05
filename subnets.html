@@ -1,13 +1,13 @@
 <html>
 <head>
-<title>Visual Subnet Calculator</title>
+<title>Visual Subnet Calculator - Azure Edition</title>
 <script language="javascript" type="text/javascript">
 <!--
 
 var visibleColumns = {
   subnet: true,
-  netmask: false,
-  range: true,
+  netmask: true,
+  range: false,
   useable: true,
   hosts: true,
   divide: true,
@@ -446,7 +446,7 @@ function parseQueryString (str)
     var fields = query.split('&');
     for (var f = 0; f < fields.length; f++) {
       var field = fields[f].split('=');
-      args[unescape(field[0].replace(/\+/g, ' '))] = 
+      args[unescape(field[0].replace(/\+/g, ' '))] =
 	unescape(field[1].replace(/\+/g, ' '));
     }
   }
@@ -500,7 +500,7 @@ P		{
 .calc {
   font-family: Arial, Verdana, sans-serif;
   font-size: 80%;
-  border-collapse: collapse; 
+  border-collapse: collapse;
 }
 
 .calc td, .calc th {
@@ -539,7 +539,7 @@ P		{
 <tr valign=top>
 <td>
 
-<h1>Visual Subnet Calculator</h1>
+<h1>Visual Subnet Calculator (Azure Edition)</h1>
 
 <p>Enter the network you wish to subnet:</p>
 
@@ -559,10 +559,10 @@ P		{
 </tr>
 </table>
 
-<p>Show columns: 
+<p>Show columns:
 <input type="checkbox" id="cb_subnet" checked onclick="toggleColumn(this)"><label for="cb_subnet">Subnet address</label>
-<input type="checkbox" id="cb_netmask" onclick="toggleColumn(this)"><label for="cb_netmask">Netmask</label>
-<input type="checkbox" id="cb_range" checked onclick="toggleColumn(this)"><label for="cb_range">Range of addresses</label>
+<input type="checkbox" id="cb_netmask" checked onclick="toggleColumn(this)"><label for="cb_netmask">Netmask</label>
+<input type="checkbox" id="cb_range" onclick="toggleColumn(this)"><label for="cb_range">Range of addresses</label>
 <input type="checkbox" id="cb_useable" checked onclick="toggleColumn(this)"><label for="cb_useable">Useable IPs</label>
 <input type="checkbox" id="cb_hosts" checked onclick="toggleColumn(this)"><label for="cb_hosts">Hosts</label>
 <input type="checkbox" id="cb_divide" checked onclick="toggleColumn(this)"><label for="cb_divide">Divide</label>
